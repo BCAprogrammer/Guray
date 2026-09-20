@@ -1,1 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gurey Shopping Center | Your Local Store</title>
+    <meta name="description" content="Gurey Shopping Center - Your one-stop shop for groceries, household items, and personal care in the neighborhood.">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CSS VARIABLES & RESET */
+        :root {
+            --primary-red: #E63946;
+            --primary-blue: #1D3557;
+            --accent-yellow: #F4A261;
+            --bg-light: #F8F9FA;
+            --text-dark: #2B2D42;
+            --text-light: #FFFFFF;
+            --transition: all 0.3s ease;
+        }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* ANIMATIONS */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* NAVIGATION */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-red);
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-red);
+        }
+
+        /* HERO SECTION */
+        header {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('assets/hero.jpg') center/cover no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--text-light);
+            padding: 0 1rem;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+            animation: slideDown 1s ease-out;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            animation: slideUp 1s ease-out 0.3s both;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background-color: var(--primary-red);
+            color: var(--text-light);
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+            animation: slideUp 1s ease-out 0.6s both;
+            box-shadow: 0 4px 15px rgba(230, 57, 70, 0.4);
+        }
+
+        .btn:hover {
+            background-color: var(--primary-blue);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(29, 53, 87, 0.4);
+        }
+
+        /* SECTIONS GENERAL */
+        section {
+            padding: 5rem 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--primary-blue);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background-color: var(--primary-red);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        /* ABOUT SECTION */
+        .about-container {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary-red);
+        }
+
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: var(--transition);
+        }
+
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+
+        /* GALLERY SECTION */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 300px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            padding: 1.5rem;
+            color: var(--text-light);
+            transform: translateY(100%);
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        /* LOCATION & CONTACT */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .contact-info {
+            padding: 3rem;
+            background-color: var(--primary-blue);
+            color: var(--text-light);
+        }
+
+        .contact-info h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-detail {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-detail i {
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            color: var(--accent-yellow);
+        }
+
+        .contact-detail p {
+            margin: 0;
+        }
+
+        .map-container {
+            width: 100%;
+            height: 100%;
+            min-height: 400px;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: var(--text-dark);
+            color: var(--text-light);
+            text-align: center;
+            padding: 2rem 5%;
+        }
+
+        footer p {
+            margin: 0;
+            opacity: 0.8;
+        }
+
+        /* KEYFRAMES */
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none; /* In a real scenario, add a hamburger menu here */
+            }
+            .hero-content h1 { font-size: 2.2rem; }
+            .about-container { flex-direction: column; }
+            .contact-container { grid-template-columns: 1fr; }
+            .contact-info { padding: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="logo">GUREY SHOP</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#gallery">Products</a></li>
+            <li><a href="#location">Location</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header id="home">
+        <div class="hero-content">
+            <h1>Gurey Shopping Center</h1>
+            <p>Your one-stop shop for groceries, household items, and everyday essentials.</p>
+            <a href="#gallery" class="btn">View Our Products</a>
+        </div>
+    </header>
+
+    <!-- ABOUT SECTION -->
+    <section id="about">
+        <h2 class="section-title fade-in">About Us</h2>
+        <div class="about-container fade-in">
+            <div class="about-text">
+                <h3>Everything You Need, Right Around the Corner!</h3>
+                <p>Welcome to Gurey Shopping Center. We are proud to serve our community with a wide variety of high-quality products. From fresh groceries and canned goods to household cleaning supplies and personal care items, we have everything you need under one roof.</p>
+                <br>
+                <p>Our shelves are always stocked, and our doors are always open. Stop by today and experience the convenience of shopping at Gurey.</p>
+            </div>
+            <div class="about-image">
+                <img src="assets/interior-2.jpg" alt="Inside Gurey Shopping Center">
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERY / PRODUCTS SECTION -->
+    <section id="gallery" style="background-color: #fff;">
+        <h2 class="section-title fade-in">Our Products</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item fade-in">
+                <img src="assets/interior-1.jpg" alt="Cleaning Supplies">
+                <div class="gallery-overlay"><h4>Household & Cleaning</h4></div>
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="assets/interior-3.jpg" alt="Beverages and Fridge">
+                <div class="gallery-overlay"><h4>Beverages & Cold Drinks</h4></div>
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="assets/products-1.jpg" alt="Canned Goods">
+                <div class="gallery-overlay"><h4>Groceries & Canned Goods</h4></div>
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="assets/products-2.jpg" alt="Spreads and Coffee">
+                <div class="gallery-overlay"><h4>Breakfast & Snacks</h4></div>
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="assets/products-3.jpg" alt="Baby Formula">
+                <div class="gallery-overlay"><h4>Baby Care & Formula</h4></div>
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="assets/interior-2.jpg" alt="General Store">
+                <div class="gallery-overlay"><h4>General Merchandise</h4></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LOCATION & CONTACT SECTION -->
+    <section id="location">
+        <h2 class="section-title fade-in">Visit Us</h2>
+        <div class="contact-container fade-in" id="contact">
+            <div class="contact-info">
+                <h3>Contact Information</h3>
+                <div class="contact-detail">
+                    <span style="font-size: 1.5rem; margin-right: 1rem; color: var(--accent-yellow);">📍</span>
+                    <div>
+                        <h4>Address</h4>
+                        <p>Gurey Shopping Center<br>Main Market Area<br>Your City, Country</p>
+                    </div>
+                </div>
+                <div class="contact-detail">
+                    <span style="font-size: 1.5rem; margin-right: 1rem; color: var(--accent-yellow);">📞</span>
+                    <div>
+                        <h4>Phone</h4>
+                        <p>405043<br>31896</p>
+                    </div>
+                </div>
+                <div class="contact-detail">
+                    <span style="font-size: 1.5rem; margin-right: 1rem; color: var(--accent-yellow);">🕒</span>
+                    <div>
+                        <h4>Opening Hours</h4>
+                        <p>Mon - Sat: 7:00 AM - 10:00 PM<br>Sunday: 8:00 AM - 9:00 PM</p>
+                    </div>
+                </div>
+            </div>
+            <div class="map-container">
+                <!-- IMPORTANT: Replace this src with your specific Google Maps embed link -->
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.835434509374!2d144.9537363153167!3d-37.8172099797516!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11c63f%3A0x5045675218ce6e0!2sMelbourne%20VIC%2C%20Australia!5e0!3m2!1sen!2s!4v1620000000000!5m2!1sen!2s" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2023 Gurey Shopping Center. All Rights Reserved.</p>
+    </footer>
+
+    <!-- JAVASCRIPT FOR SCROLL ANIMATIONS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const faders = document.querySelectorAll('.fade-in');
+
+            const appearOptions = {
+                threshold: 0.15,
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) {
+                        return;
+                    } else {
+                        entry.target.classList.add('visible');
+                        appearOnScroll.unobserve(entry.target);
+                    }
+                });
+            }, appearOptions);
+
+            faders.forEach(fader => {
+                appearOnScroll.observe(fader);
+            });
+        });
+    </script>
+
+</body>
+</html>
